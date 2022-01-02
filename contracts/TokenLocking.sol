@@ -56,6 +56,13 @@ contract TokenLocking {
         return startTime.add(_locks.duration);
     }
 
+    function withdrawBeforeStart() external {
+        require(msg.sender == owner, "must be owner");
+        require(startTime == 0, "startTime must be 0");
+        uint256 balance = token.balanceOf(address(this));
+        token.safeTransfer(owner, balance);
+    }
+
     function start() external {
         require(msg.sender == owner, "must be owner");
         require(startTime == 0, "startTime must be 0");
@@ -72,12 +79,5 @@ contract TokenLocking {
         delete locks[msg.sender];
         unlockedTokens = unlockedTokens.add(amount);
         token.safeTransfer(msg.sender, amount);
-    }
-
-    function withdrawBeforeStart() external {
-        require(msg.sender == owner, "must be owner");
-        require(startTime == 0, "startTime must be 0");
-        uint256 balance = token.balanceOf(address(this));
-        token.safeTransfer(owner, balance);
     }
 }
