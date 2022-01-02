@@ -53,6 +53,7 @@ contract TokenLocking {
     function unlockTime(address _receiver) external view returns (uint256) {
         if (startTime == 0) return 0;
         Lock storage _locks = locks[_receiver];
+        if (_locks.duration == 0) return 0;
         return startTime.add(_locks.duration);
     }
 
