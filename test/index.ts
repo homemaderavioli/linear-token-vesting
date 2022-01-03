@@ -182,20 +182,6 @@ describe("TokenLocking", function () {
         "VM Exception while processing transaction: reverted with reason string 'total == _unlockable'"
       );
     });
-
-    it("Test deploying with incorrect duration1", async function () {
-      const TokenLocking = await ethers.getContractFactory("TokenLocking");
-      const deploy = TokenLocking.deploy(
-        testToken.address,
-        testSupply.div(2),
-        [receiver1.address, receiver2.address],
-        [receiver1Amount, receiver2Amount],
-        [duration1 - 1, duration2]
-      );
-      await expect(deploy).to.revertedWith(
-        "VM Exception while processing transaction: reverted with reason string 'duration must be 1, 2 or 3 years'"
-      );
-    });
   });
 
   describe("Start() without balance", function () {

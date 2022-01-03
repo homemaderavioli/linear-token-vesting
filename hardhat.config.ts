@@ -37,6 +37,13 @@ const config: HardhatUserConfig = {
           process.env.MNEMONIC !== undefined ? process.env.MNEMONIC : "",
       },
     },
+    bscmain: {
+      url: "https://bsc-dataseed.binance.org/",
+      accounts: {
+        mnemonic:
+          process.env.MNEMONIC !== undefined ? process.env.MNEMONIC : "",
+      },
+    },
   },
   gasReporter: {
     enabled: process.env.REPORT_GAS !== undefined,

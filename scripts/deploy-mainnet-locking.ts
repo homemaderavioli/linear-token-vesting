@@ -1,19 +1,7 @@
-// We require the Hardhat Runtime Environment explicitly here. This is optional
-// but useful for running the script in a standalone fashion through `node <script>`.
-//
-// When running the script with `npx hardhat run <script>` you'll find the Hardhat
-// Runtime Environment's members available in the global scope.
 import { ethers } from "hardhat";
 
 async function main() {
-  // Hardhat always runs the compile task when running scripts with its command
-  // line interface.
-  //
-  // If this script is run directly using `node` you may want to call compile
-  // manually to make sure everything is compiled
-  // await hre.run('compile');
-
-  const testSupply = ethers.utils.parseEther("1000000000000000");
+  const testSupply = ethers.utils.parseEther("1000000000");
 
   // const ownerAcc = "0xD8Ec4e985606d7964D7c02c7ac028358bFcC81F8";
   const receiver1 = "0x6428f761Ee1532a7b6CB451B9B6979B60670a719";
@@ -78,8 +66,6 @@ async function main() {
   // console.log(`unlockTime for receiver2: ${unlockTime2}`);
 }
 
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
 main().catch((error) => {
   console.error(error);
   process.exitCode = 1;

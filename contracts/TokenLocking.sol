@@ -12,7 +12,6 @@ contract TokenLocking {
     address public owner;
     IERC20 public token;
     uint256 public startTime;
-    uint256 public constant ONEYEAR = 86400 * 365;
     uint256 public immutable maxUnlockableTokens;
     uint256 public unlockedTokens;
 
@@ -37,10 +36,6 @@ contract TokenLocking {
         for (uint256 i = 0; i < _receivers.length; i++) {
             require(locks[_receivers[i]].total == 0, "total must be 0");
             require(locks[_receivers[i]].duration == 0, "duration must be 0");
-            require(
-                _durations[i] == ONEYEAR || _durations[i] == ONEYEAR.mul(2) || _durations[i] == ONEYEAR.mul(3),
-                "duration must be 1, 2 or 3 years"
-            );
             unlockable = unlockable.add(_amounts[i]);
             locks[_receivers[i]].total = _amounts[i];
             locks[_receivers[i]].duration = _durations[i];
