@@ -1,39 +1,45 @@
 import { ethers } from "hardhat";
 
 async function main() {
-  const testSupply = ethers.utils.parseEther("1000000000");
+  const tokenAddr = "";
+
+  const supply = ethers.utils.parseEther("1000000000");
 
   // const ownerAcc = "0xD8Ec4e985606d7964D7c02c7ac028358bFcC81F8";
-  const receiver1 = "0x6428f761Ee1532a7b6CB451B9B6979B60670a719";
-  const receiver2 = "0x38B27a71e11C4968575c02e241838e8096461d00";
+  const receiver1 = "";
+  const receiver2 = "";
+  const receiver3 = "";
 
-  const receiver1Amount = testSupply.div(4);
-  const receiver2Amount = testSupply.div(4);
+  const receiver1Amount = ethers.utils.parseEther("1000000000");
+  const receiver2Amount = ethers.utils.parseEther("1000000000");
+  const receiver3Amount = ethers.utils.parseEther("1000000000");
 
-  // const duration1 = 86400 * 365;
-  // const duration2 = 86400 * 365 * 2;
-  const duration1 = 300;
-  const duration2 = 600;
+  const duration1 = 86400 * 365 * 2;
+  const duration2 = 86400 * 365 * 2;
+  const duration3 = 86400 * 365 * 3;
 
-  // We get the contract to deploy
-  const TestBFTToken = await ethers.getContractFactory("TestToken");
-  const testor = await TestBFTToken.deploy(testSupply._hex);
-
-  await testor.deployed();
-
-  console.log("Testor Token deployed to:", testor.address);
-
-  // We get the contract to deploy
   const TokenLocking = await ethers.getContractFactory("TokenLocking");
   const locking = await TokenLocking.deploy(
-    testor.address,
-    testSupply.div(2),
-    [receiver1, receiver2],
-    [receiver1Amount, receiver2Amount],
-    [duration1, duration2]
+    tokenAddr,
+    supply,
+    [receiver1, receiver2, receiver3],
+    [receiver1Amount, receiver2Amount, receiver3Amount],
+    [duration1, duration2, duration3]
   );
-  console.log([receiver1Amount.toString(), receiver2Amount.toString()]);
-  console.log([duration1.toString(), duration2.toString()]);
+
+  console.log("Token Address: ", tokenAddr);
+  console.log("Contract supply: ", supply);
+  console.log("Receivers: ", [receiver1, receiver2, receiver3]);
+  console.log("Receivers Amounts: ", [
+    receiver1Amount.toString(),
+    receiver2Amount.toString(),
+    receiver3Amount.toString(),
+  ]);
+  console.log("Receivers Durations: ", [
+    duration1.toString(),
+    duration2.toString(),
+    duration3.toString(),
+  ]);
 
   await locking.deployed();
   console.log("Locking deployed to:", locking.address);
