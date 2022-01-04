@@ -3,16 +3,20 @@ import { ethers } from "hardhat";
 async function main() {
   const tokenAddr = "";
 
-  const supply = ethers.utils.parseEther("1000000000");
+  const totalSupply = ethers.utils.parseEther("100000000000");
+  const contractSupply = totalSupply.mul(0.3);
+  console.log("Contract supply: ", contractSupply.mul(0.3));
+  const receiverAmount = totalSupply.mul(0.1);
+  console.log("Receiver amount: ", receiverAmount);
 
   // const ownerAcc = "0xD8Ec4e985606d7964D7c02c7ac028358bFcC81F8";
   const receiver1 = "";
   const receiver2 = "";
   const receiver3 = "";
 
-  const receiver1Amount = ethers.utils.parseEther("1000000000");
-  const receiver2Amount = ethers.utils.parseEther("1000000000");
-  const receiver3Amount = ethers.utils.parseEther("1000000000");
+  const receiver1Amount = receiverAmount;
+  const receiver2Amount = receiverAmount;
+  const receiver3Amount = receiverAmount;
 
   const duration1 = 86400 * 365 * 2;
   const duration2 = 86400 * 365 * 2;
@@ -21,14 +25,14 @@ async function main() {
   const TokenLocking = await ethers.getContractFactory("TokenLocking");
   const locking = await TokenLocking.deploy(
     tokenAddr,
-    supply,
+    contractSupply,
     [receiver1, receiver2, receiver3],
     [receiver1Amount, receiver2Amount, receiver3Amount],
     [duration1, duration2, duration3]
   );
 
   console.log("Token Address: ", tokenAddr);
-  console.log("Contract supply: ", supply);
+  console.log("Contract supply: ", contractSupply);
   console.log("Receivers: ", [receiver1, receiver2, receiver3]);
   console.log("Receivers Amounts: ", [
     receiver1Amount.toString(),

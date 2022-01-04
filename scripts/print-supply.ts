@@ -6,9 +6,9 @@
 import { ethers } from "hardhat";
 
 async function main() {
-  const testSupply = ethers.utils.parseEther("1000000000");
-  console.log(testSupply.div(2));
-  console.log(testSupply.div(4));
+  const totalSupply = ethers.utils.parseEther("100000000000");
+  console.log("Contract supply: ", totalSupply.mul(0.3));
+  console.log("Receiver supply: ", totalSupply.mul(0.1));
 }
 
 // We recommend this pattern to be able to use async/await everywhere
